@@ -23,10 +23,16 @@ class Mail {
             port: Number.parseInt(process.env.SMTP_PORT ?? ""),
             secure: false,
             auth: {
+                type: 'OAUTH2',
                 user: process.env.SMTP_AUTH_USER,
-                pass: process.env.SMTP_AUTH_PASSWORD
+                pass: process.env.SMTP_AUTH_PASSWORD,
+                clientId: process.env.OAUTH_CLIENTID,
+                clientSecret: process.env.OAUTH_CLIENT_SECRET,
+                refreshToken: process.env.OAUTH_REFRESH_TOKEN
             },
-            tls: { rejectUnauthorized: false }
+            tls: { rejectUnauthorized: false },
+            socketTimeout: 5 * 60 * 1000, // 5 minutes
+            connectionTimeout: 5 * 60 * 1000 // 5 minutes
         });
 
         
